@@ -1,0 +1,50 @@
+{% comment %} <html>
+    <head><h1>Django</h1></head>
+    <ul>
+        {% for todo in todos %}
+        <li> {{todo.title}} </li>
+        <a href= "{% url 'todo_update' todo.pk %}">Edit</a>
+        <a href= "{% url 'todo_delete' todo.pk %}">Delete</a>
+        {% empty %}
+        <li> No Data Found </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'todo_create' %}"> Create New Todo </a>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List - Django</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+
+    <h1 class="text-3xl font-bold text-blue-700 mb-6">Todo List</h1>
+
+    {% if todos %}
+    <ul class="space-y-4 w-full max-w-md">
+        {% for todo in todos %}
+        <li class="bg-white shadow-md rounded p-4 flex justify-between items-center">
+            <span class="text-gray-800 font-medium">{{ todo.title }}</span>
+            <div class="space-x-2">
+                <a href="{% url 'todo_update' todo.pk %}" 
+                   class="text-sm bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
+                <a href="{% url 'todo_delete' todo.pk %}" 
+                   class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-600 text-center mt-4">No Data Found</p>
+    {% endif %}
+
+    <a href="{% url 'todo_create' %}" 
+       class="mt-6 inline-block bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">
+        + Create New Todo
+    </a>
+
+</body>
+</html>
